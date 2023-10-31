@@ -3,7 +3,9 @@ import pandas as pd
 
 # Colocando o titulo da minha página (equivalente ao H1 do HTML)
 st.title("Hello world")
-st.write("Minha primeira página com streamlit")
+st.write("""
+    Primeira página com streamlit
+""", unsafe_allow_html=True)
 
 
 #Leitura de imagem com o streamlit
@@ -16,12 +18,23 @@ st.write(""" # Suba seu arquivo bem aqui """)
 #Lendo um arquivo com o streamlit e falando qual os tipos de arquivo ele aceita
 arquivo = st.file_uploader("Suba o seu arquivo", type=['csv', "png", "json"])
 
+#Vendo se existe algo dentro dessa variável
+if arquivo:
 #Lendo arquivos em formato csv e json
-if "csv" in arquivo.type:
-    print(arquivo.type)
-    dataframe = pd.read_csv(arquivo, sep=';')
-    st.write(dataframe)
-elif "json" in arquivo.type:
-    print(arquivo.type)
-    df = pd.read_json(arquivo)
-    st.write(df)
+    if "csv" in arquivo.type:
+        print(arquivo.type)
+        df = pd.read_csv(arquivo, sep=',')
+        st.dataframe(df)
+    elif "json" in arquivo.type:
+        print(arquivo.type)
+        df = pd.read_json(arquivo)
+        st.write(df)
+
+
+# Campo de input
+numero = st.text_input('Digite sua idade')
+
+# Criando a sidebar
+barraLateral = st.sidebar
+
+
